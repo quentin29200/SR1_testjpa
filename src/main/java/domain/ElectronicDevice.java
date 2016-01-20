@@ -6,7 +6,8 @@ import javax.persistence.Id;
 
 @Entity
 public class ElectronicDevice extends SmartDevice {
-
+    @Id
+    @GeneratedValue
     private int id;
     private float conso;
 

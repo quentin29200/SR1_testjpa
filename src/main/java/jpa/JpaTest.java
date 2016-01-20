@@ -18,16 +18,13 @@ public class JpaTest {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		try {
-			
-			
-			Person p = new Person();
-			p.setName("martin");
-			manager.persist(p);
-			System.out.println("Martin ajouté");
-	
-			
-			
-		
+
+			Person p2 = new Person();
+			p2.setName("martin");
+			manager.persist(p2);
+			System.out.println("martin ajouté");
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
