@@ -11,6 +11,7 @@ Nicolas Gigou / Quentin Lagadec
 - Home
 - Person
 
+
     Nous avons suivi le schéma du TP pour faire les liaisons entre les objets
 
 Utilisation des annotations pour relier les objets à la Base de données (JPA)
@@ -24,6 +25,7 @@ Ajout d'une premiere couche de service GET / POST avec les servlet (dossier serv
               - POST : ajoute une maison en base
 - /UserInfo : - GET : retourne une personne
               - POST : ajoute une personne en base
+
 
     myformadd.html permet d'accéder aux formulaires d'ajout.
 
