@@ -1,6 +1,10 @@
 package domain;
 
 import javax.persistence.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +14,13 @@ public class Home {
     private int id;
     private float size;
     private int nbPieces;
-    private List<Heater> heaters = new ArrayList<Heater>();
-    private List<ElectronicDevice> electronicDevices = new ArrayList<ElectronicDevice>();
+    private List<Heater> heaters;
+    private List<ElectronicDevice> electronicDevices;
+
+    public Home() {
+        this.heaters = new ArrayList<Heater>();
+        this.electronicDevices = new ArrayList<ElectronicDevice>();
+    }
 
     @Id
     @GeneratedValue
@@ -56,4 +65,5 @@ public class Home {
     public void setElectronicDevices(List<ElectronicDevice> electronicDevices) {
         this.electronicDevices = electronicDevices;
     }
+
 }

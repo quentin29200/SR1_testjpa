@@ -1,36 +1,54 @@
 package servlet;
 
+import domain.Heater;
+import domain.Home;
+
+import javax.persistence.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
 
 @WebServlet(name="heaterinfo",
-        urlPatterns={"/HeaterInfo"})
+        urlPatterns={"/HomeInfo/HeaterInfo"})
 public class HeaterInfo extends HttpServlet {
+
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
+
+        // The response is some html content
         response.setContentType("text/html");
 
-        PrintWriter out = response.getWriter();
+        // Entity Manager
+        EntityManagerFactory factory = Persistence
+                .createEntityManagerFactory("local");
+        EntityManager manager = factory.createEntityManager();
+
+        int id = Integer.valueOf(request.getParameter("maison"));
+        Home h = manager.find(Home.class, id);
+        System.out.println(h);
+
+        // Transaction manager
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        Heater he = new Heater();
+        // Instantiation object and persist call
+        try {
+            he.setConso(Float.valueOf(request.getParameter("consoheater")));
+            h.getHeaters().add(he);
+            manager.persist(he);
+            manager.persist(h);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tx.commit();
+
+        manager.close();
 
 
-        out.println("<HTML>\n" +
-                "<HEAD>\n" +
-                "<TITLE>Heater infos</TITLE>\n" +
-                "<HEAD>\n" +
-                "<BODY>\n" +
-                "<H1>Recapitulatif des informations</H1>\n" +
-                "<UL>\n" +
-                " <LI>Conso : "
-                + request.getParameter("consoheater") + "\n" +
-                "</UL>\n" +
-                "<UL><P>Retour au formulaire : <A HREF='./myformadd.html'>ICIII</A></P></UL>\n" +
-                "</BODY></HTML>");
+        response.sendRedirect("/HomeInfo");
     }
 }
